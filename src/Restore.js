@@ -56,7 +56,7 @@
 
             // lets start
             return new Promise((resolve, reject) => {
-                if (!this.silent) log.info(`Enumerating sql files fro restoration ...`);
+                if (!this.silent) log.info(`Enumerating sql files for restoration ...`);
 
                 // enumerate the configs
                 fs.readdir(this.dataDir, (err, files) => {
@@ -100,7 +100,12 @@
                         if (!this.silent) log.debug(`restoring ${file} ...`);
 
                         return new Promise((resolve, reject) => {
-                            cp.exec(`PGPASSWORD="${this.config.pass}" psql --dbname=${this.config.database} -U ${this.config.user} -h ${this.config.host} -p ${this.config.port} -f ${file} ${this.config.database}`, {maxBuffer: 1024*1024*20}, (err, stdOut, stdErr) => {
+                            let command;
+
+                            if (path.extname(file) === '.sql') command = `PGPASSWORD="${this.config.pass}" psql -f ${file} --dbname=${this.config.database} -U ${this.config.user} -h ${this.config.host} -p ${this.config.port}`;
+                            else command = `PGPASSWORD="${this.config.pass}" pg_restore --dbname=${this.config.database} -U ${this.config.user} -h ${this.config.host} -p ${this.config.port} ${file}`;
+
+                            cp.exec(command, {maxBuffer: 1024*1024*20}, (err, stdOut, stdErr) => {
                                 if (err) reject(err);
                                 else {
                                     if (!this.silent) log.debug(`Restore of ${file} succeeded ...`);

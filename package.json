@@ -1,7 +1,7 @@
 {
       "name"                        : "db-restore"
     , "description"                 : "creates a db from sql files"
-    , "version"                     : "1.0.0"
+    , "version"                     : "1.1.0"
     , "homepage"                    : "https://github.com/eventEmitter/db-restore"
     , "author"                      : "Michael van der Weg <michael@joinbox.com> (http://joinbox.com/)"
     , "license"                     : "MIT"
