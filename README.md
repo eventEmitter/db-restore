@@ -1,5 +1,7 @@
 # db-restore
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/eventEmitter/db-restore.svg)](https://greenkeeper.io/)
+
 creates a db from sql files
 
 
